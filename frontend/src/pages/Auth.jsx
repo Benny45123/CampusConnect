@@ -2,9 +2,9 @@ import CampusConnectLogo from "../assets/CampusConnectLogo.png";
 import CampusConnectDesc from "../assets/CampusConnectDesc.png";
 const Auth=()=>{
     return (
-        <div className="bg-[#DADBDD] min-h-screen">
-        <header className="header flex  p-4  border-b w-full h-25 top-0">
-            <div className="flex -translate-y-36 translate-x-20">
+        <div className="bg-[#DADBDD] min-h-screen overflow-x-hidden">
+        <header className=" flex  p-4  border-b w-full h-25 top-0">
+            <div className="flex top-10  -translate-y-36 translate-x-20">
                 <img src={CampusConnectLogo} alt="Campus Connect Logo" className="logo h-50 w-50 " />
             </div>
             <div className="flex text-center right-30 space-x-8 absolute top-6">
@@ -12,7 +12,7 @@ const Auth=()=>{
                 <button className="text-white bg-black  p-3 pl-5 pr-5 rounded-3xl cursor-pointer">Get Started</button>
             </div>
         </header>
-        <div className="border-b pb-20">
+        <div className="border-b pb-20 ">
         <div className="flex   p-8 mt-20 ml-10">
             <div className="flex-grow flex-col">
             <p className="font-serif text-7xl  mb-8">Campus Voices</p>
