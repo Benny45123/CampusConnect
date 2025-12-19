@@ -1,15 +1,26 @@
 import CampusConnectLogo from "../assets/CampusConnectLogo.png";
 import CampusConnectDesc from "../assets/CampusConnectDesc.png";
+import SignInComp from '../components/SignInComp';
+import SignUpComp from '../components/SignUpComp';
+import { useState } from "react";
 const Auth=()=>{
+    const [authType, setAuthType] = useState(null);
     return (
         <div className="bg-[#DADBDD] min-h-screen overflow-x-hidden">
+                  {authType && (
+        <div className="fixed inset-0 flex items-center justify-center">
+
+            {authType === "signin" && <SignInComp setAuthType={setAuthType}/>}
+            {authType === "signup" && <SignUpComp setAuthType={setAuthType}/>}
+        </div>
+      )}
         <header className=" flex  p-4  border-b w-full h-25 top-0">
             <div className="flex top-10  -translate-y-36 translate-x-20">
                 <img src={CampusConnectLogo} alt="Campus Connect Logo" className="logo h-50 w-50 " />
             </div>
             <div className="flex text-center right-30 space-x-8 absolute top-6">
-                <button className="cursor-pointer">Sign in</button>
-                <button className="text-white bg-black  p-3 pl-5 pr-5 rounded-3xl cursor-pointer">Get Started</button>
+                <button onClick={()=>setAuthType("signin")} className="cursor-pointer">Sign in</button>
+                <button onClick={()=>setAuthType("signup")} className="text-white bg-black  p-3 pl-5 pr-5 rounded-3xl cursor-pointer">Get Started</button>
             </div>
         </header>
         <div className="border-b pb-20 ">
