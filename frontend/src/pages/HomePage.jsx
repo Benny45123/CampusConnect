@@ -1,11 +1,10 @@
-import Navigationbar from "../components/Navigationbar";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header_HomePage from "../components/Header_HomePage";
+import DashBoard from "../components/DashBoard";
+
 
 function HomePage() {
   return (
     <>
-      <Header_HomePage/>
+    <DashBoard/>
     </>
   );
 }
