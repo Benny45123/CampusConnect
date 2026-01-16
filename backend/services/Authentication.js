@@ -34,18 +34,18 @@ const Login=async (req,res)=>{
         }
         const token=jwt.sign({userId:user._id,userRollNo:user.rollNo,userEmail:user.email},SECRET_KEY,{expiresIn:'1d'});
         res.cookie('token',token,{httpOnly:true,sameSite:'Lax',maxAge:24*60*60*1000});
-        res.status(200).json({message:"Login successful"});
+        res.status(200).json({message:"Login successful",rollNo:user.rollNo,email:user.email});
 
     }
     catch(error){
         console.error("Error during login:",error);
-        res.status(500).json({message:"Internal server error"});
+        res.status(500).json({message:"Invalid or expired token"});
     }
 }
 const authenticateToken=(req,res,next)=>{
     try{
         const token=req.cookies.token;
-        console.log("Authenticating token:",token);
+        // console.log("Authenticating token:",token);
         if(!token){
             return res.status(401).json({message:"No token provided"});
         }
@@ -59,4 +59,18 @@ const authenticateToken=(req,res,next)=>{
     }
 
 }
-module.exports={Register,Login,authenticateToken};
+const userSearch=async (req,res)=>{
+    try{
+        const userId=req.user.userId;
+        const user=await User.findById(userId).select('-password');
+        if(!user){
+            return res.status(404).json({message:"User not found"});
+        }
+        res.status(200).json({rollNo:user.rollNo,email:user.email});
+    }
+    catch(error){
+        console.error("Error during user search:",error);
+        res.status(500).json({message:"Internal server error"});
+}
+}
+module.exports={Register,Login,authenticateToken,userSearch};
