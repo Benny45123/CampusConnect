@@ -1,14 +1,19 @@
-import { useRef, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import emailIcon_for_SignIn from "../assets/emailIcon_for_SignIn.png"
 import { Login } from "../services/BackendHandler";
+import { AppContext } from "../context/AppContext";
 const SignInComp=({setAuthType})=>{
+    const {setUser}=useContext(AppContext);
     const rollNoOrEmail=useRef("");
     const password=useRef("");
     const handleSubmit=async(e)=>{
         e.preventDefault();
         const rollNoOrEmailValue=rollNoOrEmail.current.value;
         const passwordValue=password.current.value;
-        await Login({rollNoOrEmailValue,passwordValue});
+        const {rollNo,email}=await Login({rollNoOrEmailValue,passwordValue});
+        if(rollNo && email){
+            setUser({rollNo,email});
+        }
     }
     return (
         <div className="flex items-center justify-center min-h-screen  z-1 ">
