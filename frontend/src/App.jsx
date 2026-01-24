@@ -7,6 +7,11 @@ import { AppContext } from './context/AppContext'
 import Write from './pages/Write'
 import { Routes, Route } from 'react-router-dom'
 
+import LibraryPage from './pages/LibraryPage'
+import ProfilePage from './pages/ProfilePage'
+import StoriesPage from './pages/StoriesPage'
+
+
 function App() {
   const { user, loading } = useContext(AppContext);
   if (loading) return <div>Loading..</div>
@@ -14,12 +19,28 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={user ? <HomePage /> : <Auth />} />
+        <Route path='/' element={<HomePage />} />
+        <Route path='/Library' element={<LibraryPage />} />
+        <Route path='/Profile' element={<ProfilePage />} />
+        <Route path='/Stories' element={<StoriesPage />} />
         <Route path='/new-story' element={user ? <Write /> : <Auth />} />
       </Routes>
     </>
   )
 }
 
-
+// function App() {
+//   return (
+//     <>
+//       <Routes>
+//         <Route path='/' element={<HomePage />} />
+//         <Route path='/Library' element={<LibraryPage />} />
+//         <Route path='/Profile' element={<ProfilePage />} />
+//         <Route path='/Stories' element={<StoriesPage />} />
+//         <Route path='/new-story' element={<Write />} />
+//       </Routes>
+//     </>
+//   )
+// }
 
 export default App

@@ -1,8 +1,13 @@
 import React from 'react'
+import DashBoard from '../components/DashBoard'
 
 function ProfilePage() {
   return (
-    <div>ProfilePage</div>
+    <DashBoard showStaffPicks={false}>
+      <div className="min-h-screen">
+        {/* Blank space */}
+      </div>
+    </DashBoard>
   )
 }
 
