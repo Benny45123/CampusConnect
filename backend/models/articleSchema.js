@@ -33,7 +33,8 @@ const articleSchema=new mongoose.Schema({
         required:true
     },
     coverImageUrl:{
-        type:String
+        type:String,
+        default:null
     },
     tags:[{
         type : String,
