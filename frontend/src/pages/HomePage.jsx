@@ -1,10 +1,13 @@
 import DashBoard from "../components/DashBoard";
+import ArticleFeed from "../components/ArticleFeed";
 
 
 function HomePage() {
   return (
     <>
-    <DashBoard/>
+      <DashBoard>
+        <ArticleFeed />
+      </DashBoard>
     </>
   );
 }
