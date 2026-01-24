@@ -26,7 +26,7 @@ const findArticle = async (req, res) => {
                 {title: {$regex: keyword, $options: 'i'}},
                 {tags: {$regex: keyword, $options: 'i'}},
                 {slug: {$regex: keyword, $options: 'i'}},
-                {content: {$elemMatch: {type:'paragraph', 'data.text': {$regex: keyword, $options: 'i'}}}}]
+                {content: {text:{$elemMatch: {type:'paragraph', 'data.text': {$regex: keyword, $options: 'i'}}}}}]
         };
         if(tagFilter){
             query.tags=tagFilter.toLowerCase();
