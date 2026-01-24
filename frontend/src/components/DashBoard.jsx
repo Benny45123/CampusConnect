@@ -14,7 +14,7 @@ function DashBoard({ children, showStaffPicks = true }) {
 
       <div className="flex">
         {/* Sidebar */}
-        <aside className={`min-h-screen border-r border-gray-100 w-[20%] fixed overflow-hidden transition-all duration-300 bg-white z-40 ${sideBar ? "translate-x-0" : "-translate-x-full"}`} >
+        <aside className={`min-h-screen border-r border-gray-100 w-[20%] fixed overflow-hidden transition-all duration-1000 bg-white z-40 ${sideBar ? "translate-x-0" : "-translate-x-full"}`} >
           <div className="pt-10 space-y-12">
             <NavLink
               to="/"
@@ -130,7 +130,7 @@ function DashBoard({ children, showStaffPicks = true }) {
         </aside>
 
         {/* Main Content */}
-        <main className={`flex-1 transition-all duration-300 ${sideBar ? "ml-[20%]" : "ml-0"}`}>
+        <main className={`flex-1 transition-all duration-1000 ${sideBar ? "ml-[20%]" : "ml-0"}`}>
           <div className="flex flex-row justify-center">
             <div className={`flex-1 ${showStaffPicks ? 'max-w-4xl border-r border-gray-50' : 'max-w-5xl'} min-h-screen`}>
               {children}
