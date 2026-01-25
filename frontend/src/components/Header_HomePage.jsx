@@ -1,9 +1,28 @@
 import campusconnect_logo from "../assets/campusconnect_logo_whitebg.jpg";
-import { useContext } from "react";
+import { useContext,useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { handleLogout } from "../services/BackendHandler";
 const Header_HomePage = () => {
-    const { sideBar, setSideBar } = useContext(AppContext);
+    const navigate=useNavigate();
+    const { sideBar, setSideBar,user,setUser} = useContext(AppContext);
+    const [hovered, setHovered] = useState(false);
+    const Logout = async () => {
+        try {
+          const result = await handleLogout();
+          if (result) {
+            setUser(null);
+            // navigate('/');
+          } else {
+            alert("Logout failed. Try again.");
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Something went wrong");
+        }
+      };
+      
     return (
         <>
             <header className="  p-4   border-b border-gray-100 w-full h-17 flex top-0">
@@ -28,6 +47,7 @@ const Header_HomePage = () => {
                             </svg>
                         </div>
                         <input
+                            onKeyDown={(e)=>{if(e.key==='Enter')navigate(`/search?q=${e.target.value}`)}}
                             type="text"
                             className="block w-full pl-10 pr-3 py-2 border-transparent bg-gray-50 border rounded-full leading-5 focus:outline-none focus:bg-white focus:ring-1 focus:ring-gray-200 focus:border-gray-200 sm:text-sm transition-all duration-200"
                             placeholder="Search"
@@ -44,11 +64,58 @@ const Header_HomePage = () => {
                     <button className="text-gray-500 hover:text-gray-900 relative transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" d="M15 18.5a3 3 0 1 1-6 0"></path><path stroke="currentColor" stroke-linejoin="round" d="M5.5 10.532V9a6.5 6.5 0 0 1 13 0v1.532c0 1.42.564 2.782 1.568 3.786l.032.032c.256.256.4.604.4.966v2.934a.25.25 0 0 1-.25.25H3.75a.25.25 0 0 1-.25-.25v-2.934c0-.363.144-.71.4-.966l.032-.032A5.35 5.35 0 0 0 5.5 10.532Z"></path></svg>
                     </button>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors">
+                    {/* <div className="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" className="text-gray-400">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 11a4 4 0 100-8 4 4 0 000 8zM6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" />
                         </svg>
-                    </div>
+                        {user.email.charAt(0).toUpperCase()}
+                    </div> */}
+                    <div onClick={() => setHovered(!hovered)}
+          className="w-10 h-10 rounded-full bg-white border-2 border-gray-200 flex items-center justify-center cursor-pointer hover:border-gray-300 transition-all duration-200 shadow-sm hover:shadow-md"
+        //   onMouseEnter={() => setHovered(true)}
+        //   onMouseLeave={() => setHovered(false)}
+        >
+          <span className="text-gray-700 font-semibold text-sm">
+            {user.email.charAt(0).toUpperCase()}
+          </span>
+        </div>
+
+        {/* Dropdown Menu */}
+        <div 
+          className={`absolute top-15 lg:right-70 sm:right-15 mt-3 w-72 rounded-xl bg-white border border-gray-200 shadow-xl transition-all duration-300 ease-out origin-top-right ${
+            hovered 
+              ? 'opacity-100 scale-100 pointer-events-auto z-100' 
+              : 'opacity-0 scale-95 pointer-events-none'
+          }`}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          {/* Profile Section */}
+          <div className="p-6 flex flex-col items-center border-b border-gray-100">
+            {/* <div className="w-20 h-20 rounded-full bg-white border-gray-300 shadow-lg flex items-center justify-center  font-bold text-2xl mb-4 shadow-lg">
+              {user.email.charAt(0).toUpperCase()}
+            </div> */}
+            <span className="text-gray-900 font-semibold text-lg mb-1">
+              {user.rollNo}
+            </span>
+            <span className="text-gray-500 text-sm">
+              {user.email}
+            </span>
+          </div>
+
+          {/* Actions Section */}
+          <div className="p-2">
+            <button 
+              onClick={Logout}
+              className="w-full text-left px-4 py-3 rounded-lg text-red-600 hover:text-red-700 hover:bg-red-50 transition-all duration-200 font-medium flex items-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              Logout
+            </button>
+          </div>
+        </div>
                 </div>
             </header>
 

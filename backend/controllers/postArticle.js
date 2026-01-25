@@ -4,6 +4,7 @@ const {generateTags}=require('../utils/generateTags');
 const postArticle=async (req,res)=>{
     try{
         const {title,content,coverImageUrl=null,tags=null,status}=req.body;
+        const userName=req.user?.userName||"Unknown Author";
         const titleSlug=slugify(title,{lower:true,strict:true});
         let slug=titleSlug;
         let count=1;
@@ -26,6 +27,7 @@ const postArticle=async (req,res)=>{
             title,
             slug,
             author:req.user?.userId,
+            authorName:userName,
             content,
             coverImageUrl: coverImageUrl || null,
             tags:allTags,

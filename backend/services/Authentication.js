@@ -5,13 +5,13 @@ require('dotenv').config();
 const SECRET_KEY=process.env.SECRET_KEY;
 const Register=async (req,res)=>{
     try{
-        const {rollNo,email,password}=req.body;
+        const {rollNo,email,password,name}=req.body;
         const existingUser=await User.findOne({$or:[{rollNo},{email}]});
         if(existingUser){
             return  res.status(400).json({message:"User with given roll number or email already exists"});
         }
         const hashedPassword=await bcrypt.hash(password,12);
-        const newUser=new User({rollNo,email,password:hashedPassword});
+        const newUser=new User({rollNo,email,password:hashedPassword,name});
         await newUser.save();
         res.status(201).json({message:"User registered successfully"});
 
@@ -32,7 +32,7 @@ const Login=async (req,res)=>{
         if(!passwordValid){
             return res.status(400).json({message:"Invalid roll number/email or password"});
         }
-        const token=jwt.sign({userId:user._id,userRollNo:user.rollNo,userEmail:user.email},SECRET_KEY,{expiresIn:'1d'});
+        const token=jwt.sign({userId:user._id,userRollNo:user.rollNo,userEmail:user.email,userName:user.name},SECRET_KEY,{expiresIn:'1d'});
         res.cookie('token',token,{httpOnly:true,sameSite:'Lax',maxAge:24*60*60*1000});
         res.status(200).json({message:"Login successful",rollNo:user.rollNo,email:user.email});
 

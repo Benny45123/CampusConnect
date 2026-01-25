@@ -1,4 +1,6 @@
 const mongoose=require('mongoose');
+// const date=new Date();
+// const datePublished=`${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,'0')}-${date.getDate().toString().padStart(2,'0')}`;
 
 const blockSchema=new mongoose.Schema({
     type:{
@@ -28,6 +30,11 @@ const articleSchema=new mongoose.Schema({
         ref:'User',
         required:true
     },
+    authorName:{
+        type:String,
+        required:true
+    },
+    
     content:{
         type:[blockSchema],
         required:true
@@ -50,6 +57,9 @@ const articleSchema=new mongoose.Schema({
         type: Number,
         default:0
     },
+    datePublished:{type:Date,
+    default:Date.now()
+    }
 
 },{timestamps:true});
 const Article=mongoose.model('Article',articleSchema);

@@ -17,9 +17,9 @@ const Login=async ({rollNoOrEmailValue,passwordValue}) => {
     console.error("Error during login:",error);
 }
 }
-const Register=async ({emailValue,rollNoValue,passwordValue}) => {
+const Register=async ({emailValue,rollNoValue,passwordValue,nameValue}) => {
     try{
-        const data={email:emailValue,rollNo:rollNoValue,password:passwordValue};
+        const data={email:emailValue,rollNo:rollNoValue,password:passwordValue,name:nameValue};
         const response=await fetch("http://localhost:3101/api/auth/register",{
             method:"POST",
             headers:{
@@ -101,5 +101,20 @@ const PostArticle = async ({data}) => {
         console.error("Error uploading image:",error);
     }
   }
+  const handleLogout=async ()=>{
+    try{
+      const response=await fetch(`http://localhost:3101/api/logout`,{
+        method:'POST',
+        credentials:'include',
+      });
+      if(response.ok){
+        console.log("Logout confirmed");
+        return true
+      }
+    }
+    catch(error){
+      console.error('Error:',error);
+    }
+  }
   
-export {Login,Register,checkLogin,PostArticle,imageUpload};
+export {Login,Register,checkLogin,PostArticle,imageUpload,handleLogout};

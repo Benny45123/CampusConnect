@@ -6,12 +6,14 @@ const SignUpComp=({setAuthType})=>{
     const email=useRef("");
     const rollNo=useRef("");
     const password=useRef("");
+    const name=useRef("");
     const handleSubmit=async(e)=>{
         e.preventDefault();
         const emailValue=email.current.value;
+        const nameValue=name.current.value;
         const rollNoValue=rollNo.current.value;
         const passwordValue=password.current.value;
-        await Register({emailValue,rollNoValue,passwordValue});
+        await Register({emailValue,nameValue,rollNoValue,passwordValue});
     }
     return (
         <div className="flex items-center justify-center min-h-screen  z-1">
@@ -31,6 +33,10 @@ const SignUpComp=({setAuthType})=>{
                 <p className="ml-3 my-2">Your Email</p>
                 <div className={`ml-3 `} >
                     <input ref={email} type="email" className={` rounded-md p-1 pl-2 pr-20  focus:outline-none border`} placeholder="Enter your email id" required/>
+                </div>
+                <p className="ml-3 my-2">Your Name</p>
+                <div className={`ml-3 `} >
+                    <input ref={name} type="email" className={` rounded-md p-1 pl-2 pr-20  focus:outline-none border`} placeholder="Enter your Name" required/>
                 </div>
                 <p className="ml-3 my-2">Your Password</p>
                 <div className={`ml-3 `} >
