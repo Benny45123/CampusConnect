@@ -24,6 +24,7 @@ function App() {
         <Route path='/Profile' element={<ProfilePage />} />
         <Route path='/Stories' element={<StoriesPage />} />
         <Route path='/new-story' element={user ? <Write /> : <Auth />} />
+        <Route path='/:search' element={<HomePage />} />
       </Routes>
     </>
   )
