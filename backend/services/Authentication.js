@@ -34,7 +34,7 @@ const Login=async (req,res)=>{
         }
         const token=jwt.sign({userId:user._id,userRollNo:user.rollNo,userEmail:user.email,userName:user.name},SECRET_KEY,{expiresIn:'1d'});
         res.cookie('token',token,{httpOnly:true,sameSite:'Lax',maxAge:24*60*60*1000});
-        res.status(200).json({message:"Login successful",rollNo:user.rollNo,email:user.email});
+        res.status(200).json({message:"Login successful",rollNo:user.rollNo,email:user.email,name:user.name});
 
     }
     catch(error){
@@ -66,7 +66,7 @@ const userSearch=async (req,res)=>{
         if(!user){
             return res.status(404).json({message:"User not found"});
         }
-        res.status(200).json({rollNo:user.rollNo,email:user.email});
+        res.status(200).json({rollNo:user.rollNo,email:user.email,name:user.name});
     }
     catch(error){
         console.error("Error during user search:",error);

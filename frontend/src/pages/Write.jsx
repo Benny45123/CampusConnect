@@ -15,13 +15,15 @@ const Write = () => {
     const [focusedField, setFocusedField] = useState('story'); // Default to story
     const imageInputRef = useRef(null);
     const [uploadedImage,setUploadedImage]=useState(null);
+    const [published,setPublished]=useState(false);
     const canPublish=title.trim().length>=5 && story.trim().length>50;
     const handlePublishClick = async () => {
         if(!canPublish) return;
         const data={title,story,uploadedImage};
         const response=await PostArticle({data});
         if(response){
-            alert("Article published successfully!");
+            // alert("Article published successfully!");
+            setPublished(true);
             navigate('/new-story');
             // Optionally, redirect to the article page or clear the editor
         } else{
@@ -65,7 +67,7 @@ const Write = () => {
                 <div className="flex items-center  space-x-3 ">
                     <img src={campusconnect_logo} alt="Campus Connect Logo" className="logo h-60 w-auto -translate-y-23" />
 
-                    <span className="text-sm text-gray-400 mt-1">Draft</span>
+                    <span className="text-sm text-gray-400 mt-1">{published? 'Published' : 'Draft'}</span>
                 </div>
 
                 <div className="flex items-center space-x-4 md:space-x-6">
@@ -92,7 +94,7 @@ const Write = () => {
                     <div
                         style={{ backgroundColor: profileBgColor }}
                         className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold cursor-pointer shadow-sm transition-transform hover:scale-105"
-                        title={user?.name || "Guest"}
+                        title={user?.userName || "Guest"}
                     >
                         {userInitial}
                     </div>

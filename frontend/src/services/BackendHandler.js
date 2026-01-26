@@ -1,8 +1,9 @@
+const BACKEND_URL=import.meta.env.VITE_BACKEND_URL;
 const Login=async ({rollNoOrEmailValue,passwordValue}) => {
     
     try{
     const data={rollNoOrEmail:rollNoOrEmailValue,password:passwordValue};
-    const response=await fetch("http://localhost:3101/api/auth/login",{
+    const response=await fetch(`${BACKEND_URL}/api/auth/login`,{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
@@ -12,7 +13,7 @@ const Login=async ({rollNoOrEmailValue,passwordValue}) => {
     });
     const result=await response.json();
     console.log(result);
-    return {rollNo:result.rollNo,email:result.email};
+    return {rollNo:result.rollNo,email:result.email,name:result.name};
 }catch(error){
     console.error("Error during login:",error);
 }
@@ -20,7 +21,7 @@ const Login=async ({rollNoOrEmailValue,passwordValue}) => {
 const Register=async ({emailValue,rollNoValue,passwordValue,nameValue}) => {
     try{
         const data={email:emailValue,rollNo:rollNoValue,password:passwordValue,name:nameValue};
-        const response=await fetch("http://localhost:3101/api/auth/register",{
+        const response=await fetch(`${BACKEND_URL}/api/auth/register`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -37,7 +38,7 @@ const Register=async ({emailValue,rollNoValue,passwordValue,nameValue}) => {
 }
 const checkLogin=async ()=>{
     try{
-        const response=await fetch("http://localhost:3101/api/auth/checkLogin",{
+        const response=await fetch(`${BACKEND_URL}/api/auth/checkLogin`,{
             method:"GET",
             credentials:"include"
         });
@@ -60,7 +61,7 @@ const checkLogin=async ()=>{
 const PostArticle = async ({data}) => {
     try {
       const articleData={title:data.title,content:[{type:"paragraph",data:{text:data.story}}],coverImageUrl:data.uploadedImage,status:"published"};
-      const response = await fetch("http://localhost:3101/api/article/post", {
+      const response = await fetch(`${BACKEND_URL}/api/article/post`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -83,7 +84,7 @@ const PostArticle = async ({data}) => {
     try{
         const formData=new FormData();
         formData.append('image',data.file);
-        const response=await fetch("http://localhost:3101/api/article/upload-image",{
+        const response=await fetch(`${BACKEND_URL}/api/article/upload-image`,{
             method:"POST",
             body:formData,
             credentials:"include"
@@ -103,7 +104,7 @@ const PostArticle = async ({data}) => {
   }
   const handleLogout=async ()=>{
     try{
-      const response=await fetch(`http://localhost:3101/api/logout`,{
+      const response=await fetch(`${BACKEND_URL}/api/logout`,{
         method:'POST',
         credentials:'include',
       });

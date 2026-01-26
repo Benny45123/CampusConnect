@@ -36,7 +36,7 @@ const SignUpComp=({setAuthType})=>{
                 </div>
                 <p className="ml-3 my-2">Your Name</p>
                 <div className={`ml-3 `} >
-                    <input ref={name} type="email" className={` rounded-md p-1 pl-2 pr-20  focus:outline-none border`} placeholder="Enter your Name" required/>
+                    <input ref={name} type="text" className={` rounded-md p-1 pl-2 pr-20  focus:outline-none border`} placeholder="Enter your Name" required/>
                 </div>
                 <p className="ml-3 my-2">Your Password</p>
                 <div className={`ml-3 `} >

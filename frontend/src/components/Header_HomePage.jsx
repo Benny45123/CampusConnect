@@ -76,7 +76,7 @@ const Header_HomePage = () => {
         //   onMouseLeave={() => setHovered(false)}
         >
           <span className="text-gray-700 font-semibold text-sm">
-            {user.email.charAt(0).toUpperCase()}
+            {user.name?.charAt(0).toUpperCase()}
           </span>
         </div>
 
@@ -95,7 +95,10 @@ const Header_HomePage = () => {
             {/* <div className="w-20 h-20 rounded-full bg-white border-gray-300 shadow-lg flex items-center justify-center  font-bold text-2xl mb-4 shadow-lg">
               {user.email.charAt(0).toUpperCase()}
             </div> */}
-            <span className="text-gray-900 font-semibold text-lg mb-1">
+            <span className="text-gray-900 font-bold text-lg mb-1">
+              {user.name}
+            </span>
+            <span className="text-gray-500 text-sm mb-1">
               {user.rollNo}
             </span>
             <span className="text-gray-500 text-sm">

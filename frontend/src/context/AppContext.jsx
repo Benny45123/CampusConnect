@@ -5,6 +5,7 @@ import eventImg from '../assets/campus_event_students_1769178261694.png';
 import codingImg from '../assets/student_laptop_coding_1769178282319.png';
 import { checkLogin } from "../services/BackendHandler";
 import { useSearchParams } from "react-router-dom";
+const BACKEND_URL=import.meta.env.VITE_BACKEND_URL;
 export const AppContext=createContext();
 export function AppProvider({ children }) {
     const [searchParams]=useSearchParams();
@@ -143,7 +144,7 @@ export function AppProvider({ children }) {
         useEffect(()=>{
             const fetchArticles = async()=>{
                 setLoading(true);
-                const res=await fetch(`http://localhost:3101/api/article/search?q=${q}`,{credentials:'include'})
+                const res=await fetch(`${BACKEND_URL}/api/article/search?q=${q}`,{credentials:'include'})
                 const data=await res.json();
                 setArticles(data.articles);
                 setLoading(false);
