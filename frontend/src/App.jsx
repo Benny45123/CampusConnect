@@ -6,6 +6,7 @@ import DashBoard from './components/DashBoard'
 import { AppContext } from './context/AppContext'
 import Write from './pages/Write'
 import { Routes, Route } from 'react-router-dom'
+import SelectedArticlePage from './components/selectedArticlePage'
 
 import LibraryPage from './pages/LibraryPage'
 import ProfilePage from './pages/ProfilePage'
@@ -25,6 +26,7 @@ function App() {
         <Route path='/Stories' element={<StoriesPage />} />
         <Route path='/new-story' element={user ? <Write /> : <Auth />} />
         <Route path='/:search' element={<HomePage />} />
+        <Route path='/article/:slug' element={<SelectedArticlePage/>}/>
       </Routes>
     </>
   )

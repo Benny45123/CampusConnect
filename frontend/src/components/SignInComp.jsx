@@ -10,9 +10,9 @@ const SignInComp=({setAuthType})=>{
         e.preventDefault();
         const rollNoOrEmailValue=rollNoOrEmail.current.value;
         const passwordValue=password.current.value;
-        const {rollNo,email}=await Login({rollNoOrEmailValue,passwordValue});
-        if(rollNo && email){
-            setUser({rollNo,email});
+        const {rollNo,email,name}=await Login({rollNoOrEmailValue,passwordValue});
+        if(rollNo && email &&name){
+            setUser({rollNo,email,name});
         }
     }
     return (

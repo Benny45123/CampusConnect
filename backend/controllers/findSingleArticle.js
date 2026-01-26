@@ -1,4 +1,4 @@
-import { Article } from "../models/articleSchema";
+const {Article} = require('../models/articleSchema');
 
 const findSingleArticle = async(req,res)=>{
     try{
@@ -14,3 +14,4 @@ const findSingleArticle = async(req,res)=>{
         res.status(500).json({message:"Error finding single article"});
     }
 }
+module.exports={findSingleArticle};
